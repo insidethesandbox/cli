@@ -1,12 +1,27 @@
 # Inside the Sandbox - CLI Tool
 
+## Install
+
+```bash
+curl https://raw.githubusercontent.com/insidethesandbox/cli/main/install.sh | bash
+```
+
 ## Command
 
+start everything with
+```bash
+isb --help
+```
+
 ### generate kubernetes config
-`./dist/isb.mjs kube -f yaml -o k8s.yaml`
+```bash
+isb kube -f yaml -o k8s.yaml
+```
 
 ### genereate github ci/ci
-`./dist/isb.mjs github`
+```bash
+isb github
+```
 
 ## Config file
 
