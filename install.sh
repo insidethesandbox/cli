@@ -1,6 +1,6 @@
 OUT="/usr/local/bin/isb.mjs"
 curl https://raw.githubusercontent.com/insidethesandbox/cli/main/dist/isb.mjs -o "$OUT"
-cat << EOF >> /usr/local/bin/isb
+cat << EOF > /usr/local/bin/isb
 node /usr/local/bin/isb.mjs "\$0"
 EOF
 chmod +x /usr/local/bin/isb
