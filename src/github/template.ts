@@ -35,7 +35,7 @@ export function github_action_template({ app, namespace, kubernete_cluster = '49
             "name": "Install Doctl",
             "uses": "digitalocean/action-doctl@v2",
             "with": {
-              "token": "$DIGITALOCEAN_ACCESS_TOKEN"
+              "token": "${{ env.DIGITALOCEAN_ACCESS_TOKEN }}"
             }
           },
           {
