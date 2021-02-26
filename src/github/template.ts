@@ -1,6 +1,6 @@
 import type { Config } from '../config'
 
-export function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-5827-4036-9093-d26032fed169' }: { app: Config["applications"][number], namespace: string, kubernete_cluster?: string }) {
+export function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-5827-4036-9093-d26032fed169', digitalocean_access_token = '${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}' }: { app: Config["applications"][number], namespace: string, kubernete_cluster?: string, digitalocean_access_token?: string }) {
   return {
     "name": app.name,
     "on": {
@@ -17,7 +17,7 @@ export function github_action_template({ app, namespace, kubernete_cluster = '49
       "IMAGE_URL": `registry.digitalocean.com/insidethesandbox/${app.image_name}`,
       "KUBERNETES_CLUSTER": kubernete_cluster,
       "KUBERNETES_NAMESPACE": namespace,
-      "DIGITALOCEAN_ACCESS_TOKEN": "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
+      "DIGITALOCEAN_ACCESS_TOKEN": digitalocean_access_token,
     },
     "jobs": {
       "main": {
