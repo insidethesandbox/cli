@@ -28,7 +28,8 @@ export async function github_action_tempalte(args: InferBuilder<typeof github_ac
     const cicd_json = github.github_action_template({ 
       app: app, 
       namespace: config.kubernetes.namespace, 
-      kubernete_cluster: config.kubernetes.cluster 
+      kubernete_cluster: config.kubernetes.cluster,
+      digitalocean_access_token: config.digitalocean.access_token,
     })
     const cicd_yaml = YAML.stringify(cicd_json)
     fs.writeFileSync(path.join(workflow_folder, `${app.name}.workflow.yml`), cicd_yaml)
