@@ -11151,7 +11151,7 @@ var dist = {
 
 var yaml = dist.YAML;
 
-function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-5827-4036-9093-d26032fed169' }) {
+function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-5827-4036-9093-d26032fed169', digitalocean_access_token = '${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}' }) {
     return {
         "name": app.name,
         "on": {
@@ -11168,7 +11168,7 @@ function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-
             "IMAGE_URL": `registry.digitalocean.com/insidethesandbox/${app.image_name}`,
             "KUBERNETES_CLUSTER": kubernete_cluster,
             "KUBERNETES_NAMESPACE": namespace,
-            "DIGITALOCEAN_ACCESS_TOKEN": "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
+            "DIGITALOCEAN_ACCESS_TOKEN": digitalocean_access_token,
         },
         "jobs": {
             "main": {
@@ -11186,7 +11186,7 @@ function github_action_template({ app, namespace, kubernete_cluster = '49d2977a-
                         "name": "Install Doctl",
                         "uses": "digitalocean/action-doctl@v2",
                         "with": {
-                            "token": "$DIGITALOCEAN_ACCESS_TOKEN"
+                            "token": "${{ env.DIGITALOCEAN_ACCESS_TOKEN }}"
                         }
                     },
                     {
@@ -28984,7 +28984,8 @@ async function github_action_tempalte(args) {
         const cicd_json = github_action_template({
             app: app,
             namespace: config.kubernetes.namespace,
-            kubernete_cluster: config.kubernetes.cluster
+            kubernete_cluster: config.kubernetes.cluster,
+            digitalocean_access_token: config.digitalocean.access_token,
         });
         const cicd_yaml = yaml.stringify(cicd_json);
         writeFileSync(join(workflow_folder, `${app.name}.workflow.yml`), cicd_yaml);
